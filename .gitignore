@@ -334,3 +334,6 @@ gradle-app.setting
 ### Gradle Patch ###
 # Java heap dump
 *.hprof
+
+### custom ###
+secret.properties
