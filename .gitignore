@@ -336,4 +336,5 @@ gradle-app.setting
 *.hprof
 
 ### custom ###
-secret.properties
+.env
+logs/
