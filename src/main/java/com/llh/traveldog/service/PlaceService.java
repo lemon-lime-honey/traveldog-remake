@@ -1,7 +1,5 @@
 package com.llh.traveldog.service;
 
-import org.locationtech.jts.geom.Point;
-
 import com.llh.traveldog.data.dto.PlaceDto;
 import com.llh.traveldog.data.dto.PlaceResponseDto;
 import com.llh.traveldog.data.dto.UpdatePlaceDto;

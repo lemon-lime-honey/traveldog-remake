@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import org.locationtech.jts.geom.Coordinate;
 
 import com.llh.traveldog.data.dao.PlaceDAO;
@@ -64,7 +65,7 @@ public class PlaceDAOImpl implements PlaceDAO {
     }
 
     @Override
-    public void deletePlace(Long pk) throws Exception{
+    public void deletePlace(Long pk) throws Exception {
         Optional<Place> selectedPlace = placeRepository.findById(pk);
 
         if (selectedPlace.isPresent()) {

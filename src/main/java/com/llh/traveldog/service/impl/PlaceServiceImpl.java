@@ -1,6 +1,5 @@
 package com.llh.traveldog.service.impl;
 
-import org.locationtech.jts.geom.Coordinate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
