@@ -1,5 +1,8 @@
 package com.llh.traveldog.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,22 @@ public class PlaceServiceImpl implements PlaceService {
     @Autowired
     public PlaceServiceImpl(PlaceDAO placeDAO) {
         this.placeDAO = placeDAO;
+    }
+
+    @Override
+    public List<PlaceResponseDto> getPlaceList() {
+        List<Place> places = placeDAO.selectPlaceAll();
+        List<PlaceResponseDto> placeResponseDtos = new ArrayList<>();
+
+        for (Place place: places) {
+            PlaceResponseDto placeResponseDto = new PlaceResponseDto();
+            placeResponseDto.setPk(place.getPk());
+            placeResponseDto.setName(place.getName());
+            placeResponseDto.setCoordinate(place.getCoordinate());
+            placeResponseDtos.add(placeResponseDto);
+        }
+
+        return placeResponseDtos;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.llh.traveldog.data.dao.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,13 @@ public class PlaceDAOImpl implements PlaceDAO {
         Place savedPlace = placeRepository.save(place);
 
         return savedPlace;
+    }
+
+    @Override
+    public List<Place> selectPlaceAll() {
+        List<Place> allPlaces = placeRepository.findAll();
+
+        return allPlaces;
     }
 
     @Override
