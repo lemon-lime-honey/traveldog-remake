@@ -5,13 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.llh.traveldog.data.entity.Place;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class ReviewDto {
     private String content;
-    private Place place;
+    private Long placePk;
 }

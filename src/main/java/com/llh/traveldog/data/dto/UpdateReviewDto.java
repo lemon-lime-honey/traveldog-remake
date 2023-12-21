@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.llh.traveldog.data.entity.Place;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,5 +12,5 @@ import com.llh.traveldog.data.entity.Place;
 public class UpdateReviewDto {
     private Long pk;
     private String content;
-    private Place place;
+    private Long placePk;
 }
