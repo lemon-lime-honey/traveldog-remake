@@ -2,6 +2,8 @@ package com.llh.traveldog.controller;
 
 import java.util.List;
 
+import jakarta.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,8 +35,8 @@ public class ReviewController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ReviewResponseDto>> getReviewList() {
-        List<ReviewResponseDto> reviewResponseDtos = reviewService.getReviewList();
+    public ResponseEntity<List<ReviewResponseDto>> getReviewList(@PathParam("place") Long placePk) {
+        List<ReviewResponseDto> reviewResponseDtos = reviewService.getReviewList(placePk);
         return ResponseEntity.status(HttpStatus.OK).body(reviewResponseDtos);
     }
 

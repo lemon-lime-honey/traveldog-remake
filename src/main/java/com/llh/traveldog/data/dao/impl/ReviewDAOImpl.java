@@ -34,8 +34,8 @@ public class ReviewDAOImpl implements ReviewDAO {
     }
 
     @Override
-    public List<Review> selectReviewAll() {
-        List<Review> allReviews = reviewRepository.findAll();
+    public List<Review> selectReviewAll(Long placePk) {
+        List<Review> allReviews = reviewRepository.findByPlace_Pk(placePk);
 
         return allReviews;
     }

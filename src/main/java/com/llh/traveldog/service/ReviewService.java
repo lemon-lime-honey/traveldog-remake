@@ -7,7 +7,7 @@ import com.llh.traveldog.data.dto.ReviewResponseDto;
 import com.llh.traveldog.data.dto.UpdateReviewDto;
 
 public interface ReviewService {
-    List<ReviewResponseDto> getReviewList();
+    List<ReviewResponseDto> getReviewList(Long placePk);
 
     ReviewResponseDto getReview(Long pk);
 

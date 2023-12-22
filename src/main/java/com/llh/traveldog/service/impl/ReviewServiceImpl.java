@@ -25,8 +25,8 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<ReviewResponseDto> getReviewList() {
-        List<Review> reviews = reviewDAO.selectReviewAll();
+    public List<ReviewResponseDto> getReviewList(Long placePk) {
+        List<Review> reviews = reviewDAO.selectReviewAll(placePk);
         List<ReviewResponseDto> reviewResponseDtos = new ArrayList<>();
 
         for (Review review: reviews) {

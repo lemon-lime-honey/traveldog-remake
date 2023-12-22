@@ -7,7 +7,7 @@ import com.llh.traveldog.data.entity.Review;
 public interface ReviewDAO {
     Review insertReview(String content, Long placePk);
 
-    List<Review> selectReviewAll();
+    List<Review> selectReviewAll(Long placePk);
 
     Review selectReview(Long pk);
 
