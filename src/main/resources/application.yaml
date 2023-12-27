@@ -11,8 +11,4 @@ spring:
         database: postgresql
 
         hibernate:
-            ddl-auto: create
-
-        # properties:
-        #     hibernate:
-        #         dialect: org.hibernate.spatial.dialect.postgis.PostgreSQLDialect
+            ddl-auto: update
