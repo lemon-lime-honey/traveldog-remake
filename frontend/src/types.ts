@@ -1,15 +1,17 @@
 export type Place = {
+  pk: number;
   name: string;
   coordinate: {
-    latitude: number;
-    longitude: number;
+    x: number;
+    y: number;
   };
 };
 
 export type PlaceResponse = {
+  pk: number;
   name: string;
   coordinate: {
-    latitude: number;
-    longitude: number;
+    x: number;
+    y: number;
   };
 };

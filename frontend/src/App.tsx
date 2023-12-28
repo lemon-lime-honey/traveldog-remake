@@ -7,13 +7,12 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Placelist from './place/Placelist';
 
 const queryClient = new QueryClient();
-
 function App() {
   return (
     <>
       <Container maxWidth="xl">
         <CssBaseline />
-        <AppBar position="static">
+        <AppBar sx={{ mb: 2 }} position="static">
           <Toolbar>
             <Typography variant="h6">TravelDog</Typography>
           </Toolbar>
