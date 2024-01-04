@@ -9,3 +9,13 @@ export const getPlaces = async (): Promise<PlaceResponse[]> => {
   });
   return response.data;
 };
+
+export const addPlace = async (place: Place): Promise<PlaceResponse> => {
+  const response = await axios.post(`${import.meta.env.VITE_API_URL}/place`, place, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  return response.data;
+};
