@@ -12,17 +12,23 @@ function AddPlace() {
 
   const [place, setPlace] = useState<Place>({
     name: '',
+    description: '',
+    address: '',
     coordinate: { x: 0, y: 0 },
   });
 
   const handleSave = () => {
     const lat = document.getElementById('latitude');
     const lng = document.getElementById('longitude');
+    const desc = document.getElementById('description');
+    const address = document.getElementById('address');
     place.coordinate.x = lat.value;
     place.coordinate.y = lng.value;
+    place.description = desc.value;
+    place.address = address.value;
     setPlace(place);
     mutate(place);
-    setPlace({ name: '', coordinate: { x: 0, y: 0 } });
+    setPlace({ name: '', description: '', address: '', coordinate: { x: 0, y: 0 } });
     handleClose();
   };
 

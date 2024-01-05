@@ -27,14 +27,8 @@ function Placelist() {
               <CardHeader title={place.name} titleTypographyProps={{ noWrap: true, textAlign: 'center' }} />
               <CardContent>
                 <ListMap Lat={place.coordinate.x} Lng={place.coordinate.y} pk={place.pk} />
-                <Typography>
-                  Did you hear that? They've shut down the main reactor. We'll be destroyed for sure. This is madness!
-                  We're doomed! There'll be no escape for the Princess this time. What's that? Artoo! Artoo-Detoo, where
-                  are you? At last! Where have you been? They're heading in this direction.
-                </Typography>
-                <p>
-                  {place.coordinate.x} {place.coordinate.y}
-                </p>
+                <Typography>{place.description}</Typography>
+                <p>{place.address}</p>
               </CardContent>
             </Card>
           </Grid>
