@@ -1,15 +1,21 @@
 export type Place = {
   name: string;
   coordinate: {
-    latitude: number;
-    longitude: number;
+    x: number;
+    y: number;
   };
 };
 
 export type PlaceResponse = {
+  pk: number;
   name: string;
   coordinate: {
-    latitude: number;
-    longitude: number;
+    x: number;
+    y: number;
   };
+};
+
+export type DialogFormProps = {
+  place: Place;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
