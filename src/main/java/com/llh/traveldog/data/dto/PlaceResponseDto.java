@@ -14,5 +14,7 @@ import org.locationtech.jts.geom.Coordinate;
 public class PlaceResponseDto {
     private Long pk;
     private String name;
+    private String description;
+    private String address;
     private Coordinate coordinate;
 }

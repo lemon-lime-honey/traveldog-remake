@@ -23,6 +23,8 @@ class ReviewRepositoryTest {
         Coordinate coordinate = new Coordinate(37.6572, 126.7643);
         Place place = new Place();
         place.setName("일산 호수공원");
+        place.setDescription("Ilsan Lake Park");
+        place.setAddress("경기도 고양시 일산동구 호수로 595");
         place.setCoordinate(coordinate);
 
         placeRepository.save(place);

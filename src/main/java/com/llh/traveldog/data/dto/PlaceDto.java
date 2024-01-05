@@ -13,5 +13,7 @@ import org.locationtech.jts.geom.Coordinate;
 @Builder
 public class PlaceDto {
     private String name;
+    private String description;
+    private String address;
     private Coordinate coordinate;
 }

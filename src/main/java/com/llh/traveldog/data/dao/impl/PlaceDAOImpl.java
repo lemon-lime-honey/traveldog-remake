@@ -23,9 +23,6 @@ public class PlaceDAOImpl implements PlaceDAO {
 
     @Override
     public Place insertPlace(Place place) {
-        if (place.getCoordinate() == null) {
-            place.setCoordinate(new Coordinate(37.5759, 126.9768));
-        }
         Place savedPlace = placeRepository.save(place);
 
         return savedPlace;
@@ -46,7 +43,7 @@ public class PlaceDAOImpl implements PlaceDAO {
     }
 
     @Override
-    public Place updatePlace(Long pk, String name, Coordinate coordinate) throws Exception {
+    public Place updatePlace(Long pk, String name, String description, String address, Coordinate coordinate) throws Exception {
         if (name == null && coordinate == null) {
             throw new Exception();
         }
@@ -59,10 +56,9 @@ public class PlaceDAOImpl implements PlaceDAO {
             Place place = selectedPlace.get();
 
             place.setName(name);
-
-            if (coordinate != null) {
-                place.setCoordinate(coordinate);
-            }
+            place.setDescription(description);
+            place.setAddress(address);
+            place.setCoordinate(coordinate);
 
             updatedPlace = placeRepository.save(place);
         } else {

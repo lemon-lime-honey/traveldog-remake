@@ -13,7 +13,7 @@ public interface PlaceDAO {
 
     Place selectPlace(Long pk);
 
-    Place updatePlace(Long pk, String name, Coordinate coordinate) throws Exception;
+    Place updatePlace(Long pk, String name, String description, String address, Coordinate coordinate) throws Exception;
 
     void deletePlace(Long pk) throws Exception;
 }

@@ -31,6 +31,8 @@ public class PlaceServiceImpl implements PlaceService {
             PlaceResponseDto placeResponseDto = new PlaceResponseDto();
             placeResponseDto.setPk(place.getPk());
             placeResponseDto.setName(place.getName());
+            placeResponseDto.setDescription(place.getDescription());
+            placeResponseDto.setAddress(place.getAddress());
             placeResponseDto.setCoordinate(place.getCoordinate());
             placeResponseDtos.add(placeResponseDto);
         }
@@ -45,6 +47,8 @@ public class PlaceServiceImpl implements PlaceService {
         PlaceResponseDto placeResponseDto = new PlaceResponseDto();
         placeResponseDto.setPk(place.getPk());
         placeResponseDto.setName(place.getName());
+        placeResponseDto.setDescription(place.getDescription());
+        placeResponseDto.setAddress(place.getAddress());
         placeResponseDto.setCoordinate(place.getCoordinate());
 
         return placeResponseDto;
@@ -54,6 +58,8 @@ public class PlaceServiceImpl implements PlaceService {
     public PlaceResponseDto savePlace(PlaceDto placeDto) {
         Place place = new Place();
         place.setName(placeDto.getName());
+        place.setDescription(placeDto.getDescription());
+        place.setAddress(placeDto.getAddress());
         place.setCoordinate(placeDto.getCoordinate());
 
         Place savedPlace = placeDAO.insertPlace(place);
@@ -61,6 +67,8 @@ public class PlaceServiceImpl implements PlaceService {
         PlaceResponseDto placeResponseDto = new PlaceResponseDto();
         placeResponseDto.setPk(savedPlace.getPk());
         placeResponseDto.setName(savedPlace.getName());
+        placeResponseDto.setDescription(savedPlace.getDescription());
+        placeResponseDto.setAddress(savedPlace.getAddress());
         placeResponseDto.setCoordinate(savedPlace.getCoordinate());
 
         return placeResponseDto;
@@ -71,12 +79,16 @@ public class PlaceServiceImpl implements PlaceService {
         Place updatedPlace = placeDAO.updatePlace(
             updatePlaceDto.getPk(),
             updatePlaceDto.getName(),
+            updatePlaceDto.getDescription(),
+            updatePlaceDto.getAddress(),
             updatePlaceDto.getCoordinate()
         );
 
         PlaceResponseDto placeResponseDto = new PlaceResponseDto();
         placeResponseDto.setPk(updatedPlace.getPk());
         placeResponseDto.setName(updatedPlace.getName());
+        placeResponseDto.setDescription(updatedPlace.getDescription());
+        placeResponseDto.setAddress(updatedPlace.getAddress());
         placeResponseDto.setCoordinate(updatedPlace.getCoordinate());
 
         return placeResponseDto;

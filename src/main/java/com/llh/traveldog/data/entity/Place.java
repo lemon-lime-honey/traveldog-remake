@@ -33,6 +33,10 @@ public class Place extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
+    private String description;
+
+    private String address;
+
     private Coordinate coordinate;
 
     @OneToMany(
