@@ -20,10 +20,28 @@ function PlaceDialogContent({ place, handleChange }: DialogFormProps) {
     <DialogContent>
       <Stack spacing={2} mt={1}>
         <GetMap address={address} />
-        <TextField placeholder="이름" name="name" value={place.name} onChange={handleChange} />
+        <TextField label="이름" name="name" value={place.name} onChange={handleChange} variant="outlined" required />
         <br />
-        <TextField placeholder="주소" value={inputAddress} onChange={(e) => setInputAddress(e.target.value)} />
+        <TextField label="주소" value={inputAddress} onChange={(e) => setInputAddress(e.target.value)} required />
         <br />
+        <TextField
+          label="위도"
+          id="latitude"
+          type="number"
+          InputProps={{ readOnly: true }}
+          InputLabelProps={{ shrink: true }}
+          onChange={handleChange}
+          required
+        />
+        <TextField
+          label="경도"
+          id="longitude"
+          type="number"
+          InputProps={{ readOnly: true }}
+          InputLabelProps={{ shrink: true }}
+          onChange={handleChange}
+          required
+        />
       </Stack>
     </DialogContent>
   );

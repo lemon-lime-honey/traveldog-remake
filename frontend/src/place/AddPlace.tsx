@@ -16,6 +16,11 @@ function AddPlace() {
   });
 
   const handleSave = () => {
+    const lat = document.getElementById('latitude');
+    const lng = document.getElementById('longitude');
+    place.coordinate.x = lat.value;
+    place.coordinate.y = lng.value;
+    setPlace(place);
     mutate(place);
     setPlace({ name: '', coordinate: { x: 0, y: 0 } });
     handleClose();
@@ -42,8 +47,6 @@ function AddPlace() {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const p = { ...place };
     p.name = event.target.value;
-    p.coordinate.x = 37.5759;
-    p.coordinate.y = 126.9768;
     setPlace(p);
   };
 

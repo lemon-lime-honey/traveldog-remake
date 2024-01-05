@@ -21,6 +21,8 @@ export function StaticMap() {
 export function GetMap({ address }) {
   useEffect(() => {
     const container = document.getElementById('map');
+    const lat = document.getElementById('latitude');
+    const lng = document.getElementById('longitude');
     let option = {
       center: new kakao.maps.LatLng(37.5759, 126.9768),
       draggable: false,
@@ -41,6 +43,8 @@ export function GetMap({ address }) {
           position: coords,
         });
         map.setCenter(coords);
+        lat.value = result[0].y;
+        lng.value = result[0].x;
       }
     });
   }, [address]);
