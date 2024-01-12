@@ -1,5 +1,7 @@
 export type Place = {
   name: string;
+  description: string;
+  address: string;
   coordinate: {
     x: number;
     y: number;
@@ -9,6 +11,8 @@ export type Place = {
 export type PlaceResponse = {
   pk: number;
   name: string;
+  description: string;
+  address: string;
   coordinate: {
     x: number;
     y: number;
