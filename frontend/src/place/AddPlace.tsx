@@ -18,10 +18,12 @@ function AddPlace() {
   });
 
   const handleSave = () => {
+    const name = document.getElementById('name');
     const lat = document.getElementById('latitude');
     const lng = document.getElementById('longitude');
     const desc = document.getElementById('description');
     const address = document.getElementById('address');
+    place.name = name.value;
     place.coordinate.x = lat.value;
     place.coordinate.y = lng.value;
     place.description = desc.value;
@@ -50,18 +52,18 @@ function AddPlace() {
     setOpen(false);
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const p = { ...place };
-    p.name = event.target.value;
-    setPlace(p);
-  };
+  // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const p = { ...place };
+  //   p.name = event.target.value;
+  //   setPlace(p);
+  // };
 
   return (
     <>
       <Button onClick={handleClickOpen}>장소 추가하기</Button>
       <Dialog open={open} onClose={handleClose} fullWidth={true} maxWidth={'md'}>
         <DialogTitle>새 장소</DialogTitle>
-        <PlaceDialogContent place={place} handleChange={handleChange} />
+        <PlaceDialogContent place={place} />
         <DialogActions>
           <Button onClick={handleClose}>취소</Button>
           <Button onClick={handleSave}>저장</Button>

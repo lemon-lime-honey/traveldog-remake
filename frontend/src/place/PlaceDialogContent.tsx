@@ -1,9 +1,8 @@
-import { Box, DialogContent, Stack, TextField } from '@mui/material';
-import { DialogFormProps } from '../types';
-import { GetMap } from './Map';
 import { useEffect, useState } from 'react';
+import { Box, DialogContent, Stack, TextField } from '@mui/material';
+import { GetMap } from './Map';
 
-function PlaceDialogContent({ place, handleChange }: DialogFormProps) {
+function PlaceDialogContent() {
   const [inputAddress, setInputAddress] = useState('');
   const [address, setAddress] = useState('');
 
@@ -20,7 +19,7 @@ function PlaceDialogContent({ place, handleChange }: DialogFormProps) {
     <DialogContent>
       <Stack spacing={2} mt={1}>
         <GetMap address={address} />
-        <TextField label="이름" name="name" value={place.name} variant="outlined" required />
+        <TextField label="이름" id="name" variant="outlined" required />
         <Box sx={{ pb: 1, width: '100%' }} hidden>
           <TextField
             label="위도"
@@ -28,7 +27,6 @@ function PlaceDialogContent({ place, handleChange }: DialogFormProps) {
             type="number"
             InputProps={{ readOnly: true }}
             InputLabelProps={{ shrink: true }}
-            onChange={handleChange}
             sx={{ width: '50%', paddingRight: 1 }}
             required
           />
@@ -38,7 +36,6 @@ function PlaceDialogContent({ place, handleChange }: DialogFormProps) {
             type="number"
             InputProps={{ readOnly: true }}
             InputLabelProps={{ shrink: true }}
-            onChange={handleChange}
             sx={{ width: '50%' }}
             required
           />

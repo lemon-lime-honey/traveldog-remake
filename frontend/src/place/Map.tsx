@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 
 const { kakao } = window;
 
-export function StaticMap() {
+export function StaticMap({ Lat, Lng }: { Lat: number; Lng: number }) {
   useEffect(() => {
-    const markerPosition = new kakao.maps.LatLng(37.5759, 126.9768);
+    const markerPosition = new kakao.maps.LatLng(Lat, Lng);
     const marker = { position: markerPosition };
     const container = document.getElementById('staticmap');
     const mapOption = {
@@ -15,7 +15,7 @@ export function StaticMap() {
     const staticMap = new kakao.maps.StaticMap(container, mapOption);
   }, []);
 
-  return <div id="staticmap" style={{ width: 'auto', height: '500px' }}></div>;
+  return <div id="staticmap" style={{ width: '500px', height: '300px' }}></div>;
 }
 
 export function GetMap({ address }) {
@@ -52,11 +52,11 @@ export function GetMap({ address }) {
   return <div id="map" style={{ width: 'auto', height: '500px' }}></div>;
 }
 
-export function ListMap({ Lat, Lng, pk }: { Lat: number; Lng: number; pk: string }) {
+export function ListMap({ Lat, Lng, pk }: { Lat: number; Lng: number; pk: number }) {
   useEffect(() => {
     const markerPosition = new kakao.maps.LatLng(Lat, Lng);
     const marker = { position: markerPosition };
-    const container = document.getElementById(pk);
+    const container = document.getElementById(pk.toString());
     const mapOption = {
       center: markerPosition,
       level: 4,
@@ -65,5 +65,5 @@ export function ListMap({ Lat, Lng, pk }: { Lat: number; Lng: number; pk: string
     const listMap = new kakao.maps.StaticMap(container, mapOption);
   }, []);
 
-  return <div id={pk} style={{ width: '227px', height: '227px', margin: 'auto' }}></div>;
+  return <div id={pk.toString()} style={{ width: '227px', height: '227px', margin: 'auto' }}></div>;
 }
