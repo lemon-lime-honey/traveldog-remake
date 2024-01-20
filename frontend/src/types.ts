@@ -23,3 +23,8 @@ export type DialogFormProps = {
   place: Place;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
+
+export type PlaceEntry = {
+  place: Place;
+  pk: string;
+};
