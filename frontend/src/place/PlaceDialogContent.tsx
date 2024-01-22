@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Box, DialogContent, Stack, TextField } from '@mui/material';
 import { GetMap } from './Map';
+import { DialogFormProps } from '../types';
 
-function PlaceDialogContent() {
-  const [inputAddress, setInputAddress] = useState('');
+function PlaceDialogContent({ place, handleChange }: DialogFormProps) {
+  const [inputAddress, setInputAddress] = useState(place.address);
   const [address, setAddress] = useState('');
 
   useEffect(() => {
@@ -19,7 +20,15 @@ function PlaceDialogContent() {
     <DialogContent>
       <Stack spacing={2} mt={1}>
         <GetMap address={address} />
-        <TextField label="이름" id="name" variant="outlined" required />
+        <TextField
+          label="이름"
+          name="name"
+          id="name"
+          variant="outlined"
+          value={place.name}
+          onChange={handleChange}
+          required
+        />
         <Box sx={{ pb: 1, width: '100%' }} hidden>
           <TextField
             label="위도"
@@ -47,7 +56,16 @@ function PlaceDialogContent() {
           onChange={(e) => setInputAddress(e.target.value)}
           required
         />
-        <TextField label="설명" id="description" multiline rows={4} placeholder="설명" />
+        <TextField
+          label="설명"
+          id="description"
+          name="description"
+          multiline
+          rows={4}
+          placeholder="설명"
+          value={place.description}
+          onChange={handleChange}
+        />
       </Stack>
     </DialogContent>
   );
