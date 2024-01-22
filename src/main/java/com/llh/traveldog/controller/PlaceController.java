@@ -1,10 +1,11 @@
 package com.llh.traveldog.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +23,9 @@ import com.llh.traveldog.data.dto.PlaceResponseDto;
 import com.llh.traveldog.data.dto.UpdatePlaceDto;
 import com.llh.traveldog.service.PlaceService;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @RestController
 @RequestMapping("/place")
 @Tag(name = "Place", description = "Place API")
@@ -34,34 +38,44 @@ public class PlaceController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PlaceResponseDto>> getPlaceList() {
-        List<PlaceResponseDto> placeResponseDtos = placeService.getPlaceList();
-        return ResponseEntity.status(HttpStatus.OK).body(placeResponseDtos);
+    public CollectionModel<EntityModel<PlaceResponseDto>> getPlaceList() {
+        List<EntityModel<PlaceResponseDto>> placeResponseDtos = placeService.getPlaceList().stream()
+            .map(place -> EntityModel.of(place,
+                linkTo(methodOn(PlaceController.class).getPlace(place.getPk())).withSelfRel(),
+                linkTo(methodOn(PlaceController.class).getPlaceList()).withRel("place")))
+            .collect(Collectors.toList());
+        return CollectionModel.of(placeResponseDtos,
+            linkTo(methodOn(PlaceController.class).getPlaceList()).withSelfRel());
     }
 
     @GetMapping("/{pk}")
     @Operation(summary = "Get Place Information", description = "개별 장소 조회")
-    public ResponseEntity<PlaceResponseDto> getPlace(@PathVariable Long pk) {
+    public EntityModel<PlaceResponseDto> getPlace(@PathVariable Long pk) {
         PlaceResponseDto placeResponseDto = placeService.getPlace(pk);
-        return ResponseEntity.status(HttpStatus.OK).body(placeResponseDto);
+        return EntityModel.of(placeResponseDto,
+            linkTo(methodOn(PlaceController.class).getPlace(pk)).withSelfRel(),
+            linkTo(methodOn(PlaceController.class).getPlaceList()).withRel("place"));
     }
 
     @PostMapping
-    public ResponseEntity<PlaceResponseDto> createPlace(@RequestBody PlaceDto placeDto) {
+    public EntityModel<PlaceResponseDto> createPlace(@RequestBody PlaceDto placeDto) {
         PlaceResponseDto placeResponseDto = placeService.savePlace(placeDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(placeResponseDto);
+        return EntityModel.of(placeResponseDto,
+            linkTo(methodOn(PlaceController.class).getPlace(placeResponseDto.getPk())).withSelfRel(),
+            linkTo(methodOn(PlaceController.class).getPlaceList()).withRel("place"));
     }
 
-    @PutMapping
-    public ResponseEntity<PlaceResponseDto> updatePlace(
+    @PutMapping("/{pk}")
+    public EntityModel<PlaceResponseDto> updatePlace(
         @RequestBody UpdatePlaceDto updatePlaceDto) throws Exception {
         PlaceResponseDto placeResponseDto = placeService.updatePlace(updatePlaceDto);
-        return ResponseEntity.status(HttpStatus.OK).body(placeResponseDto);
+        return EntityModel.of(placeResponseDto,
+            linkTo(methodOn(PlaceController.class).getPlace(placeResponseDto.getPk())).withSelfRel(),
+            linkTo(methodOn(PlaceController.class).getPlaceList()).withRel("place"));
     }
 
-    @DeleteMapping
-    public ResponseEntity<String> deletePlace(Long pk) throws Exception {
+    @DeleteMapping("/{pk}")
+    public void deletePlace(@PathVariable Long pk) throws Exception {
         placeService.deletePlace(pk);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("정상적으로 삭제되었습니다.");
     }
 }

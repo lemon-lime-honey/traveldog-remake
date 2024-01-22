@@ -18,16 +18,26 @@ export function StaticMap({ Lat, Lng }: { Lat: number; Lng: number }) {
   return <div id="staticmap" style={{ width: '500px', height: '300px' }}></div>;
 }
 
-export function GetMap({ address }) {
+export function GetMap({ address }: { address: string }) {
   useEffect(() => {
     const container = document.getElementById('map');
     const lat = document.getElementById('latitude');
     const lng = document.getElementById('longitude');
-    let option = {
-      center: new kakao.maps.LatLng(37.5759, 126.9768),
-      draggable: false,
-      level: 3,
-    };
+    let option;
+
+    if (lat.value && lng.value) {
+      option = {
+        center: new kakao.maps.LatLng(lng.value, lat.value),
+        draggable: false,
+        level: 3,
+      };
+    } else {
+      option = {
+        center: new kakao.maps.LatLng(37.5759, 126.9768),
+        draggable: false,
+        level: 3,
+      };
+    }
     let map = new kakao.maps.Map(container, option);
     let marker = new kakao.maps.Marker({
       map: map,
