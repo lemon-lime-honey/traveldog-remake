@@ -1,11 +1,15 @@
 package com.llh.traveldog.data.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import org.locationtech.jts.geom.Coordinate;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import org.locationtech.jts.geom.Coordinate;
+import com.llh.traveldog.data.CoordinateDeserializer;
 
 @Data
 @NoArgsConstructor
@@ -16,5 +20,7 @@ public class UpdatePlaceDto {
     private String name;
     private String description;
     private String address;
+
+    @JsonDeserialize(using = CoordinateDeserializer.class)
     private Coordinate coordinate;
 }
