@@ -7,7 +7,7 @@ export const getPlaces = async (): Promise<PlaceResponse[]> => {
       'Content-Type': 'application/json',
     },
   });
-  return response.data;
+  return response.data._embedded.placeResponseDtoList;
 };
 
 export const addPlace = async (place: Place): Promise<PlaceResponse> => {
@@ -16,15 +16,19 @@ export const addPlace = async (place: Place): Promise<PlaceResponse> => {
       'Content-Type': 'application/json',
     },
   });
+  console.log(place);
+  console.log(response);
 
   return response.data;
 };
 
 export const updatePlace = async (placeEntry: PlaceEntry): Promise<PlaceResponse> => {
-  const response = await axios.put(`${import.meta.env.VITE_API_URL}/place/${placeEntry.pk}`, placeEntry.place, {
+  console.log(placeEntry);
+  const response = await axios.put(placeEntry.url, placeEntry.place, {
     headers: {
       'Content-Type': 'application/json',
     },
   });
+  console.log(response);
   return response.data;
 };

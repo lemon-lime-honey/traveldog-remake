@@ -1,4 +1,5 @@
 export type Place = {
+  pk?: number;
   name: string;
   description: string;
   address: string;
@@ -17,6 +18,14 @@ export type PlaceResponse = {
     x: number;
     y: number;
   };
+  _links: {
+    self: {
+      href: string;
+    };
+    place: {
+      href: string;
+    };
+  };
 };
 
 export type DialogFormProps = {
@@ -26,5 +35,5 @@ export type DialogFormProps = {
 
 export type PlaceEntry = {
   place: Place;
-  pk: string;
+  url: string;
 };

@@ -49,15 +49,16 @@ function UpdatePlace({ placedata }: FormProps) {
   };
 
   const handleSave = () => {
-    const pk = placedata.pk.toString();
     const lat = document.getElementById('latitude');
     const lng = document.getElementById('longitude');
     const address = document.getElementById('address');
-    place.coordinate.x = lat.value;
-    place.coordinate.y = lng.value;
+    place.coordinate.x = Number(lat.value);
+    place.coordinate.y = Number(lng.value);
     place.address = address.value;
+    place.pk = placedata.pk;
     setPlace(place);
-    const placeEntry: PlaceEntry = { place, pk };
+    const url = placedata._links.self.href;
+    const placeEntry: PlaceEntry = { place, url };
     mutate(placeEntry);
     setPlace({
       name: '',
