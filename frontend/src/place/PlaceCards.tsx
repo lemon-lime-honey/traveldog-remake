@@ -5,7 +5,7 @@ import { Place, PlaceResponse } from '../types';
 
 interface PlaceCardsProps {
   places: PlaceResponse[];
-  showSinglePlace: (place: Place) => void;
+  showSinglePlace: (place: PlaceResponse) => void;
 }
 
 const PlaceCards: React.FC<PlaceCardsProps> = ({ places, showSinglePlace }) => {

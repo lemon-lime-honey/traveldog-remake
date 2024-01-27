@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getPlaces } from './placeapi';
 import AddPlace from './AddPlace';
-import { Place } from '../types';
+import { Place, PlaceResponse } from '../types';
 import PlaceCards from './PlaceCards';
 import CardModal from './PlaceDetail';
 import '../assets/Styles/Placelist.css';
@@ -13,9 +13,9 @@ function Placelist() {
     queryFn: getPlaces,
   });
 
-  const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
+  const [selectedPlace, setSelectedPlace] = useState<PlaceResponse | null>(null);
 
-  const showSinglePlace = (place: Place) => {
+  const showSinglePlace = (place: PlaceResponse) => {
     setSelectedPlace(place);
   };
 
