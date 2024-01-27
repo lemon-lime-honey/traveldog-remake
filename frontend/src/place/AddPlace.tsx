@@ -17,7 +17,8 @@ function AddPlace() {
     coordinate: { x: 0, y: 0 },
   });
 
-  const handleSave = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     const lat = document.getElementById('latitude');
     const lng = document.getElementById('longitude');
     const address = document.getElementById('address');
@@ -55,14 +56,16 @@ function AddPlace() {
   return (
     <>
       <Button onClick={handleClickOpen}>장소 추가하기</Button>
-      <Dialog open={open} onClose={handleClose} fullWidth={true} maxWidth={'md'}>
-        <DialogTitle>새 장소</DialogTitle>
-        <PlaceDialogContent place={place} handleChange={handleChange} />
-        <DialogActions>
-          <Button onClick={handleClose}>취소</Button>
-          <Button onClick={handleSave}>저장</Button>
-        </DialogActions>
-      </Dialog>
+      <form onSubmit={handleSubmit}>
+        <Dialog open={open} onClose={handleClose} fullWidth={true} maxWidth={'md'}>
+          <DialogTitle>새 장소</DialogTitle>
+          <PlaceDialogContent place={place} handleChange={handleChange} />
+          <DialogActions>
+            <Button onClick={handleClose}>취소</Button>
+            <Button type="submit">저장</Button>
+          </DialogActions>
+        </Dialog>
+      </form>
     </>
   );
 }

@@ -5,7 +5,7 @@ import { ListMap } from './Map';
 
 interface SinglePlaceProps {
   place: PlaceResponse;
-  showSinglePlace: (place: Place) => void;
+  showSinglePlace: (place: PlaceResponse) => void;
 }
 
 const SinglePlace: React.FC<SinglePlaceProps> = ({ place, showSinglePlace }) => {
