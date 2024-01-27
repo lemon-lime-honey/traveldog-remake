@@ -48,7 +48,8 @@ function UpdatePlace({ placedata }: FormProps) {
     setOpen(false);
   };
 
-  const handleSave = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     const lat = document.getElementById('latitude');
     const lng = document.getElementById('longitude');
     const address = document.getElementById('address');
@@ -83,14 +84,16 @@ function UpdatePlace({ placedata }: FormProps) {
           <EditIcon fontSize="small" />
         </IconButton>
       </Tooltip>
-      <Dialog open={open} onClose={handleClose} fullWidth={true} maxWidth={'md'}>
-        <DialogTitle>장소 수정하기</DialogTitle>
-        <PlaceDialogContent place={place} handleChange={handleChange} />
-        <DialogActions>
-          <Button onClick={handleClose}>취소</Button>
-          <Button onClick={handleSave}>저장</Button>
-        </DialogActions>
-      </Dialog>
+      <form onSubmit={handleSubmit}>
+        <Dialog open={open} onClose={handleClose} fullWidth={true} maxWidth={'md'}>
+          <DialogTitle>장소 수정하기</DialogTitle>
+          <PlaceDialogContent place={place} handleChange={handleChange} />
+          <DialogActions>
+            <Button onClick={handleClose}>취소</Button>
+            <Button type="submit">저장</Button>
+          </DialogActions>
+        </Dialog>
+      </form>
     </>
   );
 }

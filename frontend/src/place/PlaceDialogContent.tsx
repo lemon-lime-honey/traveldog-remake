@@ -27,6 +27,7 @@ function PlaceDialogContent({ place, handleChange }: DialogFormProps) {
           variant="outlined"
           value={place.name}
           onChange={handleChange}
+          error={place.name === '' ? true : false}
           required
         />
         <Box sx={{ pb: 1, width: '100%' }} hidden>
@@ -54,6 +55,7 @@ function PlaceDialogContent({ place, handleChange }: DialogFormProps) {
           id="address"
           value={inputAddress}
           onChange={(e) => setInputAddress(e.target.value)}
+          error={inputAddress === '' ? true : false}
           required
         />
         <TextField
