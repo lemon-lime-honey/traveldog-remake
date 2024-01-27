@@ -2,20 +2,33 @@ import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { deletePlace } from './placeapi';
 import React from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-interface DeletePlaceProps {
+type DeletePlaceProps = {
   url: string;
   closeModal: () => void;
-}
+};
 
-const DeletePlace: React.FC<DeletePlaceProps> = ({ url, closeModal }) => {
+function DeletePlace({ url, closeModal }: DeletePlaceProps) {
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: deletePlace,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['place'] });
+    },
+    onError: (err) => {
+      console.error(err);
+    },
+  });
+
   return (
     <>
       <IconButton
         aria-label="delete"
         size="small"
         onClick={() => {
-          deletePlace(url);
+          mutate(url);
           closeModal();
         }}
       >
@@ -23,6 +36,6 @@ const DeletePlace: React.FC<DeletePlaceProps> = ({ url, closeModal }) => {
       </IconButton>
     </>
   );
-};
+}
 
 export default DeletePlace;
