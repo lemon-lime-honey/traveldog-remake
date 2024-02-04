@@ -41,8 +41,7 @@ public class PlaceController {
     public CollectionModel<EntityModel<PlaceResponseDto>> getPlaceList() {
         List<EntityModel<PlaceResponseDto>> placeResponseDtos = placeService.getPlaceList().stream()
             .map(place -> EntityModel.of(place,
-                linkTo(methodOn(PlaceController.class).getPlace(place.getPk())).withSelfRel(),
-                linkTo(methodOn(PlaceController.class).getPlaceList()).withRel("place")))
+                linkTo(methodOn(PlaceController.class).getPlace(place.getPk())).withSelfRel()))
             .collect(Collectors.toList());
         return CollectionModel.of(placeResponseDtos,
             linkTo(methodOn(PlaceController.class).getPlaceList()).withSelfRel());

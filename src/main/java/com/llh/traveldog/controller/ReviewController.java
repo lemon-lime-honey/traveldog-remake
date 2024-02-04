@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,7 +27,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping("/place/{placePk}/review")
 @Tag(name = "Review")
 public class ReviewController {
     private final ReviewService reviewService;
@@ -38,38 +36,40 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    @GetMapping
+    @GetMapping("/place/{placePk}/review")
     public ResponseEntity<CollectionModel<EntityModel<ReviewResponseDto>>> getReviewList(@PathVariable Long placePk) {
         List<EntityModel<ReviewResponseDto>> reviewResponseDtos = reviewService.getReviewList(placePk).stream()
             .map(review -> EntityModel.of(review,
-                linkTo(methodOn(ReviewController.class).getReview(review.getPk())).withSelfRel(),
-                linkTo(methodOn(ReviewController.class).getReviewList(placePk)).withRel("review")))
+                linkTo(methodOn(ReviewController.class).getReview(placePk, review.getPk())).withSelfRel()))
             .collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(CollectionModel.of(reviewResponseDtos, linkTo(methodOn(ReviewController.class).getReviewList(placePk)).withSelfRel()));
     }
 
-    @GetMapping("/{pk}")
-    public ResponseEntity<EntityModel<ReviewResponseDto>> getReview(@PathVariable Long pk) {
+    @GetMapping("/place/{placePk}/review/{pk}")
+    public ResponseEntity<EntityModel<ReviewResponseDto>> getReview(@PathVariable Long placePk, @PathVariable Long pk) {
         ReviewResponseDto reviewResponseDto = reviewService.getReview(pk);
         return ResponseEntity.status(HttpStatus.OK).body(EntityModel.of(reviewResponseDto,
-            linkTo(methodOn(ReviewController.class).getReview(pk)).withSelfRel()));
+            linkTo(methodOn(ReviewController.class).getReview(placePk, pk)).withSelfRel(),
+            linkTo(methodOn(ReviewController.class).getReviewList(placePk)).withRel("review")));
     }
 
-    @PostMapping
-    public ResponseEntity<String> createReview(@RequestBody ReviewDto reviewDto) {
+    @PostMapping("/place/{placePk}/review")
+    public ResponseEntity<String> createReview(@PathVariable Long placePk, @RequestBody ReviewDto reviewDto) {
         ReviewResponseDto reviewResponseDto = reviewService.saveReview(reviewDto);
         return ResponseEntity.status(HttpStatus.CREATED).body("정상적으로 저장되었습니다.");
     }
 
-    @PutMapping("/{pk}")
+    @PutMapping("/place/{placePk}/review/{pk}")
     public ResponseEntity<String> updateReview(
+        @PathVariable Long placePk,
+        @PathVariable Long pk,
         @RequestBody UpdateReviewDto updateReviewDto) throws Exception {
         ReviewResponseDto reviewResponseDto = reviewService.updateReview(updateReviewDto);
         return ResponseEntity.status(HttpStatus.OK).body("정상적으로 수정되었습니다.");
     }
 
-    @DeleteMapping("/{pk}")
-    public ResponseEntity<String> deleteReview(@PathVariable Long pk) throws Exception {
+    @DeleteMapping("/place/{placePk}/review/{pk}")
+    public ResponseEntity<String> deleteReview(@PathVariable Long placePk, @PathVariable Long pk) throws Exception {
         reviewService.deleteReview(pk);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("정상적으로 삭제되었습니다.");
     }
