@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class ReviewResponseDto {
     private Long pk;
     private String content;
-    private PlaceResponseDto placeResponseDto;
+    private Long placePk;
 }

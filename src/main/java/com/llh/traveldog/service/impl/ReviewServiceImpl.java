@@ -7,11 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.llh.traveldog.data.dao.ReviewDAO;
-import com.llh.traveldog.data.dto.PlaceResponseDto;
 import com.llh.traveldog.data.dto.ReviewDto;
 import com.llh.traveldog.data.dto.ReviewResponseDto;
 import com.llh.traveldog.data.dto.UpdateReviewDto;
-import com.llh.traveldog.data.entity.Place;
 import com.llh.traveldog.data.entity.Review;
 import com.llh.traveldog.service.ReviewService;
 
@@ -31,9 +29,9 @@ public class ReviewServiceImpl implements ReviewService {
 
         for (Review review: reviews) {
             ReviewResponseDto reviewResponseDto = new ReviewResponseDto();
-            saveNestedDto(review.getPlace(), reviewResponseDto);
             reviewResponseDto.setPk(review.getPk());
             reviewResponseDto.setContent(review.getContent());
+            reviewResponseDto.setPlacePk(placePk);
 
             reviewResponseDtos.add(reviewResponseDto);
         }
@@ -48,8 +46,7 @@ public class ReviewServiceImpl implements ReviewService {
         ReviewResponseDto reviewResponseDto = new ReviewResponseDto();
         reviewResponseDto.setPk(review.getPk());
         reviewResponseDto.setContent(review.getContent());
-
-        saveNestedDto(review.getPlace(), reviewResponseDto);
+        reviewResponseDto.setPlacePk(review.getPlace().getPk());
 
         return reviewResponseDto;
     }
@@ -61,8 +58,7 @@ public class ReviewServiceImpl implements ReviewService {
         ReviewResponseDto reviewResponseDto = new ReviewResponseDto();
         reviewResponseDto.setPk(savedReview.getPk());
         reviewResponseDto.setContent(savedReview.getContent());
-
-        saveNestedDto(savedReview.getPlace(), reviewResponseDto);
+        reviewResponseDto.setPlacePk(savedReview.getPlace().getPk());
 
         return reviewResponseDto;
     }
@@ -78,8 +74,7 @@ public class ReviewServiceImpl implements ReviewService {
         ReviewResponseDto reviewResponseDto = new ReviewResponseDto();
         reviewResponseDto.setPk(updatedReview.getPk());
         reviewResponseDto.setContent(updatedReview.getContent());
-
-        saveNestedDto(updatedReview.getPlace(), reviewResponseDto);
+        reviewResponseDto.setPlacePk(updatedReview.getPlace().getPk());
 
         return reviewResponseDto;
     }
@@ -87,13 +82,5 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public void deleteReview(Long pk) throws Exception {
         reviewDAO.deleteReview(pk);
-    }
-
-    private void saveNestedDto(Place place, ReviewResponseDto reviewResponseDto) {
-        PlaceResponseDto placeResponseDto = new PlaceResponseDto();
-        placeResponseDto.setPk(place.getPk());
-        placeResponseDto.setName(place.getName());
-        placeResponseDto.setCoordinate(place.getCoordinate());
-        reviewResponseDto.setPlaceResponseDto(placeResponseDto);
     }
 }
