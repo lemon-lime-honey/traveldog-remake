@@ -4,6 +4,9 @@ import { Place, PlaceResponse } from '../types';
 import { StaticMap } from './Map';
 import UpdatePlace from './UpdatePlace';
 import DeletePlace from './DeletePlace';
+import { useQuery } from '@tanstack/react-query';
+import { getReviews } from '../review/reviewapi';
+import Reviews from '../review/Reviews';
 
 interface PlaceDetailProps {
   place: PlaceResponse | null;
@@ -11,6 +14,11 @@ interface PlaceDetailProps {
 }
 
 const PlaceDetail: React.FC<PlaceDetailProps> = ({ place, closeModal }) => {
+  const { data } = useQuery({
+    queryKey: ['review', place?.pk],
+    queryFn: () => getReviews(place?.pk),
+  });
+
   return (
     <Dialog open={Boolean(place)} onClose={closeModal}>
       <Box display="flex" justifyContent="space-between" sx={{ paddingRight: '1rem' }}>
@@ -24,6 +32,7 @@ const PlaceDetail: React.FC<PlaceDetailProps> = ({ place, closeModal }) => {
         <StaticMap Lat={place?.coordinate.x} Lng={place?.coordinate.y} />
         <Typography variant="body2">{place?.address}</Typography>
         <Typography>{place?.description}</Typography>
+        <Reviews reviews={data} />
       </DialogContent>
     </Dialog>
   );
