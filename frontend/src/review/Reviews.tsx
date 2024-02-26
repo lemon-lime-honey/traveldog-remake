@@ -1,5 +1,6 @@
 import React from 'react';
 import { ReviewResponse } from '../types';
+import { Box } from '@mui/material';
 
 // interface ReviewProps {
 //   reviews: ReviewResponse[];
@@ -12,7 +13,9 @@ function Reviews({ reviews }: { reviews: ReviewResponse[] }) {
   return (
     <>
       {reviews.map((review) => (
-        <span key={review.pk}>{review.content}</span>
+        <Box>
+          <p key={review.pk}>{review.content}</p>
+        </Box>
       ))}
     </>
   );

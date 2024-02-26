@@ -20,19 +20,32 @@ const PlaceDetail: React.FC<PlaceDetailProps> = ({ place, closeModal }) => {
   });
 
   return (
-    <Dialog open={Boolean(place)} onClose={closeModal}>
-      <Box display="flex" justifyContent="space-between" sx={{ paddingRight: '1rem' }}>
-        <DialogTitle variant="h4">{place?.name}</DialogTitle>
-        <Box display="flex">
-          <UpdatePlace placedata={place} />
-          <DeletePlace url={place?._links.self.href} closeModal={closeModal} />
+    <Dialog open={Boolean(place)} onClose={closeModal} fullWidth={true} PaperProps={{ sx: { height: '60%' } }}>
+      <Box>
+        <Box display="flex" justifyContent="space-between" sx={{ paddingRight: '1rem', pb: 0 }}>
+          <DialogTitle variant="h4" sx={{ pb: 0 }}>
+            {place?.name}
+          </DialogTitle>
+          <Box display="flex">
+            <UpdatePlace placedata={place} />
+            <DeletePlace url={place?._links.self.href} closeModal={closeModal} />
+          </Box>
         </Box>
+        <DialogTitle variant="subtitle1" sx={{ pt: 1, pb: 0 }}>
+          {place?.address}
+        </DialogTitle>
       </Box>
-      <DialogContent>
-        <StaticMap Lat={place?.coordinate.x} Lng={place?.coordinate.y} />
-        <Typography variant="body2">{place?.address}</Typography>
-        <Typography>{place?.description}</Typography>
-        <Reviews reviews={data} />
+      <DialogContent sx={{ display: 'flex' }}>
+        <Box sx={{ width: '45%', mr: 2 }}>
+          <StaticMap Lat={place?.coordinate.x} Lng={place?.coordinate.y} />
+          <Typography>{place?.description}</Typography>
+        </Box>
+        <Box flexGrow="1">
+          <Typography variant="h5" sx={{ pt: 0 }}>
+            후기
+          </Typography>
+          <Reviews reviews={data} />
+        </Box>
       </DialogContent>
     </Dialog>
   );

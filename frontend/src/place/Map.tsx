@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
+type GetMapProps = {
+  address: string;
+  handleCoord: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
 const { kakao } = window;
 
 export function StaticMap({ Lat, Lng }: { Lat: number; Lng: number }) {
@@ -9,16 +14,16 @@ export function StaticMap({ Lat, Lng }: { Lat: number; Lng: number }) {
     const container = document.getElementById('staticmap');
     const mapOption = {
       center: markerPosition,
-      level: 3,
+      level: 5,
       marker: marker,
     };
     const staticMap = new kakao.maps.StaticMap(container, mapOption);
   }, []);
 
-  return <div id="staticmap" style={{ width: '500px', height: '300px' }}></div>;
+  return <div id="staticmap" style={{ width: '100%', aspectRatio: 1 }}></div>;
 }
 
-export function GetMap({ address }: { address: string }) {
+export function GetMap({ address, handleCoord }: GetMapProps) {
   useEffect(() => {
     const container = document.getElementById('map');
     const lat = document.getElementById('latitude');
@@ -38,6 +43,7 @@ export function GetMap({ address }: { address: string }) {
         level: 3,
       };
     }
+
     let map = new kakao.maps.Map(container, option);
     let marker = new kakao.maps.Marker({
       map: map,
@@ -55,6 +61,7 @@ export function GetMap({ address }: { address: string }) {
         map.setCenter(coords);
         lat.value = result[0].y;
         lng.value = result[0].x;
+        handleCoord;
       }
     });
   }, [address]);
