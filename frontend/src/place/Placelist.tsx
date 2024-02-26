@@ -24,7 +24,7 @@ function Placelist() {
   };
 
   if (!isSuccess) {
-    return <span>Loading...</span>;
+    return <AddPlace />;
   } else if (error) {
     return <span>Error!</span>;
   }

@@ -6,6 +6,17 @@ import { DialogFormProps } from '../types';
 function PlaceDialogContent({ place, handleChange }: DialogFormProps) {
   const [inputAddress, setInputAddress] = useState(place.address);
   const [address, setAddress] = useState('');
+  const [coord, setCoord] = useState(() =>
+    place.address === '' ? { x: 37.5758772, y: 126.9768121 } : place.coordinate
+  );
+
+  const handleCoord = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.name === 'x') {
+      setCoord({ ...coord, x: { ...coord.x, x: event.target.value } });
+    } else {
+      setCoord({ ...coord, y: { ...coord.y, y: event.target.value } });
+    }
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -19,7 +30,7 @@ function PlaceDialogContent({ place, handleChange }: DialogFormProps) {
   return (
     <DialogContent>
       <Stack spacing={2} mt={1}>
-        <GetMap address={address} />
+        <GetMap address={address} handleCoord={handleCoord} />
         <TextField
           label="이름"
           name="name"
@@ -35,17 +46,23 @@ function PlaceDialogContent({ place, handleChange }: DialogFormProps) {
             label="위도"
             id="latitude"
             type="number"
+            name="x"
             InputProps={{ readOnly: true }}
             InputLabelProps={{ shrink: true }}
             sx={{ width: '50%', paddingRight: 1 }}
+            value={coord.x}
+            error={coord.x < 33 || coord.x > 43 ? false : true}
             required
           />
           <TextField
             label="경도"
             id="longitude"
             type="number"
+            name="y"
             InputProps={{ readOnly: true }}
             InputLabelProps={{ shrink: true }}
+            value={coord.y}
+            error={coord.y < 124 || coord.y > 132 ? false : true}
             sx={{ width: '50%' }}
             required
           />

@@ -90,7 +90,9 @@ function UpdatePlace({ placedata }: FormProps) {
           <PlaceDialogContent place={place} handleChange={handleChange} />
           <DialogActions>
             <Button onClick={handleClose}>취소</Button>
-            <Button type="submit">저장</Button>
+            <Button type="submit" onClick={handleSubmit}>
+              저장
+            </Button>
           </DialogActions>
         </Dialog>
       </form>

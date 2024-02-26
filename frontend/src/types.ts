@@ -37,3 +37,28 @@ export type PlaceEntry = {
   place: Place;
   url: string;
 };
+
+export type Review = {
+  pk?: number;
+  content: string;
+  placePk: number;
+};
+
+export type ReviewResponse = {
+  pk: number;
+  content: string;
+  placePk: number;
+  _links: {
+    self: {
+      href: string;
+    };
+    place: {
+      href: string;
+    };
+  };
+};
+
+export type ReviewEntry = {
+  review: Review;
+  url: string;
+};
